@@ -1,0 +1,45 @@
+{block title}Login | Coaster db{/block}
+
+{block content}
+<div class="auth-form login">
+	<div class="content">
+		<h1><i class="uk-icon-lock"></i> Sign In</h1>
+		{form loginForm}
+			<table class="uk-form">
+		        <tr>
+		        	<td style="text-align: center; padding-bottom: 10px;"><span class="error" n:foreach="$form->errors as $error"><b>{$error}</b></span></td>
+		        </tr>
+				<tr>
+		            <td colspan="2"><b>{label email /}</b></td>
+		        </tr>
+		        <tr>
+		            <td colspan="2">{input email}</td>
+		        </tr>
+		        <tr>
+		            <td colspan="2" style="padding-top:10px;"><b>{label password /}</b></td>
+		        </tr>
+		        <tr>
+		            <td colspan="2">{input password}</td>
+		        </tr>
+				<tr>
+		        	<td style="padding-top:10px;">{input login}</tds></td>
+		        </tr>
+			</table> 
+		{/form loginForm}
+	</div>
+	<span class="down-button"><a n:href="Auth:registration">Don't you have account? Registration here.</a></span>
+</div>
+<script>
+
+'{foreach $flashes as $flash}'
+	UIkit.notify({
+		message : '<i class=\'uk-icon-check\'></i> ' + {$flash->message},
+	    status  : 'success',
+	    timeout : 2000
+	});
+'{/foreach}'
+</script>
+
+{/block}
+
+

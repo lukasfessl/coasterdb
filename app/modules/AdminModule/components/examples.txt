@@ -1,0 +1,34 @@
+{*   <div class="uk-form">*}
+	{form form}
+
+	<div class="uk-alert uk-alert-danger errors" data-uk-alert n:if="$form->hasErrors()">
+	    <a href="" class="uk-alert-close uk-close"></a>
+	    <p>Form is not valid</p>
+	</div>
+
+
+		<table class="uk-form">
+			<tr>
+				<td>{label brevery /}</td>
+				<td>{input brevery}</td>
+				<td>{$form['brevery']->getError()}<td>
+			</tr>
+			<tr>
+				<td>{label founded /}</td>
+				<td>{input founded}</td>
+				<td>{$form['founded']->getError()}<td>
+			</tr>
+			<tr>
+				<td colspan="2">{input send class=>"uk-button"}</td>
+			</tr>
+		</table> 
+	{/form}
+	
+	
+{* - </div> -->
+
+<span class="flashMessage" n:foreach="form->errors as error">{$error->message}</span>
+
+ <ul class="errors" n:if="$form->hasErrors()">
+        <li n:foreach="$form->errors as $error">{$error}</li>
+</ul> *}

@@ -1,0 +1,43 @@
+#
+# WARNING: it is CRITICAL that this file & directory are NOT accessible directly via a web browser!
+# https://nette.org/security-warning
+#
+
+includes:
+	 - parameters.neon
+	
+php:
+	date.timezone: Europe/Prague
+
+
+application:
+	mapping:
+		*: App\Modules\*Module\Presenters\*Presenter
+		
+
+database:
+	dsn: 'mysql:host=127.0.0.1;dbname=coasters233'
+	user: 'root'
+	password:
+	options:
+		lazy: yes
+
+
+session:
+	expiration: 14 days
+
+
+services:
+	router: App\RouterFactory::createRouter
+	
+	userRespository: App\Modules\Core\Repository\UserRepository
+	coasterRespository: App\Modules\Core\Repository\CoasterRepository
+	braveryRepository: App\Modules\Core\Repository\BraveryRepository	
+	
+	authService:
+		class: App\Modules\AdminModule\Service\AuthService
+		arguments: [@userRespository, %password%]
+		
+	managementService: 
+		class: App\Modules\AdminModule\Service\ManagementService
+		arguments: [@userRespository, @coasterRespository, @braveryRepository, %password%]

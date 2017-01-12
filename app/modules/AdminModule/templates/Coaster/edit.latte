@@ -1,0 +1,23 @@
+{block head}
+	<script type="text/javascript" src="{$basePath}/lib/jcrop/jquery.Jcrop.min.js"></script>
+	<script type="text/javascript" src="{$basePath}/js/jcrop.js"></script>
+	<link rel="stylesheet" href="/lib/jcrop/css/jquery.Jcrop.min.css">
+	<script type="text/javascript" src="{$basePath}/lib/uikit/js/components/notify.js"></script>
+{/block}
+
+{block content}
+
+<h3>Edit Coaster</h3>
+{control coasterForm}
+
+<script>
+'{foreach $flashes as $flash}'
+	UIkit.notify({
+	    message : '<i class=\'uk-icon-check\'></i> ' + {$flash->message},
+	    status  : 'success',
+	    timeout : 1500
+	});
+'{/foreach}'
+</script>
+
+{/block}

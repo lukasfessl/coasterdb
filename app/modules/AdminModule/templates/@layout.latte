@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="description" content="">
+	<meta name="robots" content="noindex, nofollow">
+
+	<title>{block title}Coaster db{/block}</title>
+
+	<link rel="stylesheet" href="{$basePath}/lib/uikit/css/uikit_custom.css">
+	<link href="http://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css" rel="Stylesheet"></link>
+	<link rel="stylesheet" href="{$basePath}/css/style.css">
+	
+	<script type="text/javascript" src="{$basePath}/lib/jquery/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src="{$basePath}/lib/uikit/js/uikit.min.js"></script>
+	<script src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="{$basePath}/lib/nette.ajax.js"></script>
+	<script type="text/javascript" src="{$basePath}/js/admin.js"></script>
+	
+	
+	{block #head}{/block}
+
+	<link rel="shortcut icon" href="{$basePath}/images/favicon.png">
+</head>
+
+<body>
+
+	<nav class="uk-navbar">
+    	<ul class="uk-navbar-nav">
+        	<li class="{ifCurrent Homepage:default}uk-active{/ifCurrent}"><a n:href="Homepage:default">Dashboard</a></li>
+        	<li class="{ifCurrent Coaster:list}uk-active{/ifCurrent}"><a n:href="Coaster:list">Collection</a></li>
+        	<li class="{ifCurrent Coaster:add}uk-active{/ifCurrent}"><a n:href="Coaster:add">Add Coaster</a></li>
+    	</ul>
+    	<div class="uk-navbar-flip">
+        	<ul class="uk-navbar-nav">
+        		<li class="{ifCurrent Settings:default}uk-active{/ifCurrent}"><a n:href="Settings:default">Settings</a></li>
+            	<li><a n:href="logout!">Logout</a></li>
+       		</ul>
+    	</div>
+	</nav>
+	
+	<div class="uk-panel uk-panel-box content">
+		{include #content}
+	</div>
+
+</body>
+</html>
+

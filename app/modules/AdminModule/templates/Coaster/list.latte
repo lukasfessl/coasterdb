@@ -1,0 +1,106 @@
+{block head}
+	<script type="text/javascript" src="{$basePath}/lib/uikit/js/components/lightbox.js"></script>
+	<script type="text/javascript" src="{$basePath}/lib/uikit/js/components/notify.js"></script>
+{/block}
+
+{block content}
+
+<h3 class="uk-panel-title">Coaster List</h3>
+
+<div class="paginator-wrapper paginator-wrapper-top">
+	{control pagination}
+</div>
+{snippet coasterList}
+<div n:inner-foreach="$coasters as $coaster" class="custom-grid-1-2 custom-grid-1-3 custom-grid-1-4 custom-grid-1-5 custom-grid-1-6 coaster-list-wrapper">
+	<div class="coaster-item">
+		<span>
+			<p>{$coaster['bravery_name']} ({$coaster['bravery_founded']})</p>
+			<span class="coaster-button-wrapper">
+				<a class="coaster-button coaster-remove" href="#remove-modal-{$coaster[id]}" data-uk-modal><i class="uk-icon-remove"></i></a>
+				<a class="coaster-button coaster-edit" n:href="Coaster:edit $coaster[id]"><i class="uk-icon-pencil"></i></a>
+			</span>
+
+			<div id="remove-modal-{$coaster[id]}" class="uk-modal">
+			    <div class="uk-modal-dialog">
+			        <p>Are you sure, that you want remove this ?</p>
+			        <div class="uk-modal-footer uk-text-right">
+			        	<button type="button" class="uk-button uk-modal-close">Cancel</button>
+<!-- 			        	<a class="ajax uk-button uk-button uk-button-primary coaster-remove-confirm" n:href="removeCoaster! $coaster['id']">Ok</a> -->
+			        	<a class="coaster-remove-action uk-button uk-button uk-button-primary coaster-remove-confirm" href="#" onClick="return false;">Ok</a>
+					</div>
+			    </div>
+			</div>
+			
+		</span>
+		<a href="{$basePath}/upload/{$user[id]}/{$coaster[front_image]}" data-uk-lightbox="{ group:'{$coaster[id]}' }">
+			<img src="{$basePath}/upload/{$user[id]}/thumb_{$coaster[front_image]}" title="Front">
+		</a>
+		<a href="{$basePath}/upload/{$user[id]}/{$coaster[back_image]}" data-uk-lightbox="{ group:'{$coaster[id]}' }">
+			<img src="{$basePath}/upload/{$user[id]}/thumb_{$coaster[back_image]}" title="Back">
+		</a>			
+	</div>
+</div>
+{/snippet}
+<div class="paginator-wrapper">
+	{control pagination}
+</div>
+
+<script>
+
+'{foreach $flashes as $flash}'
+	UIkit.notify({
+		message : '<i class=\'uk-icon-check\'></i> ' + {$flash->message},
+	    status  : 'success',
+	    timeout : 1500
+	});
+'{/foreach}'
+
+
+function initRemoveCoasters() {
+	$('.coaster-remove-action').on('click', function() {
+		var modalDOM = $(this).parent().parent().parent();
+		var modal = UIkit.modal("#" + modalDOM.attr('id'));
+		if ( modal.isActive() ) {
+		    modal.hide();
+		}
+		$("#" + modalDOM.attr('id')).on({
+	        'show.uk.modal': function() {},
+	        'hide.uk.modal': function() {  	
+	        	var id = modalDOM.attr('id').split('-').pop();
+	        	$.nette.ajax({
+	        	    url: "list/?do=removeCoaster",
+	        	    data: {
+	        	    	coasterId: id
+	        	    },
+	        	    success: function (data) {
+	        	    	if (data !== 'error31') {
+	        	        	UIkit.notify({
+	        	        	    message : '<i class=\'uk-icon-check\'></i> Coaster was removed',
+	        	        	    status  : 'success',
+	        	        	    timeout : 1500
+	        	        	});	
+						} else if (data === 'error31') {
+							UIkit.notify({
+	        	        	    message : '<i class=\'uk-icon-check\'></i> Coaster wasn\'t removed. Coaster with id: ' + id + ' doesn\'t exist. ('+ data +')',
+	        	        	    status  : 'danger',
+	        	        	    timeout : 2500
+	        	        	});
+							console.log('Coaster wasn\'t removed. Coaster with id: ' + id + ' doesn\'t exist. ('+ jsonData.result +')');
+						}
+	        	    },
+	        	    complete: function () {
+	        	    	initRemoveCoasters();
+	        	    }
+	        	});
+	        	
+	    	}
+		});
+	
+	});
+}
+
+initRemoveCoasters();
+</script>
+
+
+{/block}

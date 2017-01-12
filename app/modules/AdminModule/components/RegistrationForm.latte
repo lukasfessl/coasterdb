@@ -1,0 +1,56 @@
+<div class="auth-form registration">
+	<div class="content">
+		<div class="uk-form">
+			<h1><i class="uk-icon-gear"></i> Registration</h1>
+			{form form}
+			<table>
+				<tr>
+					<td><b>{label nick /}</b></td>
+				</tr>
+				<tr>
+					<td>{input nick}</td>
+				</tr>
+				
+				
+				<tr>
+					<td class="required" style="padding-top:10px;"><b>{label email /}</b></td>
+				</tr>
+				<tr>
+					<td>{input email}</td>
+				</tr>
+				<tr>
+					<td><span class="error">{$form['email']->error}</span></td>
+				</tr>
+				
+				
+				<tr>
+					<td class="required" style="padding-top:10px;"><b>{label password1 /}</b></td>
+				</tr>
+				<tr>
+					<td>{input password1}</td>
+				</tr>
+				<tr>
+					<td><span class="error">{$form['password1']->error}</span></td>
+				</tr>
+				
+				
+				<tr>
+					<td class="required" style="padding-top:10px;"><b>{label password2 /}</b></td>
+				</tr>
+				<tr>
+					<td>{input password2}</td>
+				</tr>
+				<tr>
+					<td><span class="error">{$form['password2']->error}</span></td>
+				</tr>
+				
+				
+				<tr>
+					<td style="padding-top:10px;">{input send}</td>
+				</tr>
+			</table>
+			{/form}
+		</div>
+	</div>
+	<span class="down-button"><a href="{$presenter->link('Auth:default')}"><i class="uk-icon-arrow-left"></i> Back to login page</a></span>
+</div>

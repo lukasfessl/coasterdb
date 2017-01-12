@@ -1,0 +1,21 @@
+{block head}
+	<script type="text/javascript" src="{$basePath}/lib/uikit/js/components/notify.js"></script>
+{/block}
+
+{block content}
+
+<h3 class="uk-panel-title">Change Password</h3>
+{control userUpdateForm}
+
+<script>
+
+'{foreach $flashes as $flash}'
+	UIkit.notify({
+		message : '<i class=\'uk-icon-check\'></i> ' + {$flash->message},
+	    status  : 'success',
+	    timeout : 1500
+	});
+'{/foreach}'
+</script>
+
+{/block}

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="description" content="">
+	<meta name="robots" content="noindex, nofollow">
+
+	<title>{block title}Administrace{/block}</title>
+
+	<link rel="stylesheet" href="{$basePath}/css/admin.css">
+	<link rel="stylesheet" href="{$basePath}/css/fa/css/font-awesome.min.css">
+
+	<script type="text/javascript" src="{$basePath}/js/jquery.js"></script>
+    <script type="text/javascript" src="{$basePath}/js/jquery.ui.js"></script>
+    <script type="text/javascript" src="{$basePath}/js/jcrop/jquery.Jcrop.min.js"></script>
+    <link rel="stylesheet" href="{$basePath}/js/jcrop/css/jquery.Jcrop.min.css">
+	<script type="text/javascript" src="{$basePath}/js/nette.ajax.js"></script>
+	<script type="text/javascript" src="{$basePath}/js/tinymce/tinymce.min.js"></script>
+	<script type="text/javascript" src="{$basePath}/js/tinymce.js"></script>
+	<script type="text/javascript" src="{$basePath}/js/adminScript.js"></script>
+
+	{block #head}{/block}
+
+	<link rel="shortcut icon" href="{$basePath}/images/favicon.png">
+</head>
+
+<body>
+
+{include #content}
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+<div class="uk-form">
+	{form form}
+		<table>
+			<tr>
+				<td style="padding-top:10px;"><b>{label password1 /}</b></td>
+			</tr>
+			<tr>
+				<td>{input password1}</td>
+			</tr>
+			<tr>
+				<td><span class="error">{$form['password1']->error}</span></td>
+			</tr>
+			
+			
+			<tr>
+				<td style="padding-top:10px;"><b>{label password2 /}</b></td>
+			</tr>
+			<tr>
+				<td>{input password2}</td>
+			</tr>
+			<tr>
+				<td><span class="error">{$form['password2']->error}</span></td>
+			</tr>
+			<tr>
+				<td style="padding-top:10px;">{input send}</td>
+			</tr>
+		</table>
+	{/form}	
+</div>

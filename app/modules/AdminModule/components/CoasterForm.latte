@@ -1,0 +1,79 @@
+ <div class="uk-form">
+	{form form}
+	<table>
+		<tr>
+			<td>{input imageFront}{input x1}{input y1}{input w1}{input h1}{input iw1}{input ih1}</td>
+			<td>{input imageBack}{input x2}{input y2}{input w2}{input h2}{input iw2}{input ih2}</td>
+		</tr>
+		<tr>
+			<td colspan="2"><span class="error">{$form['imageFront']->error}</span></td>
+			<td colspan="2"><span class="error">{$form['imageBack']->error}</span></td>
+		</tr>
+		<tr>	
+			<td colspan="2">
+				<label for="frm-coasterForm-form-imageFront" id="input-file-front" class="uk-button input-file-replacement">
+					Select front image
+				</label>
+				<div class="image-front-wrapper">
+					<img id="image-front" src="{$basePath}{$imgFrontPlaceholder}">
+				</div>
+			</td>
+			
+			<td colspan="2">
+				<label for="frm-coasterForm-form-imageBack" id="input-file-back" class="uk-button input-file-replacement">
+					Select back image
+				</label>
+				<div class="image-back-wrapper">
+					<img id="image-back" src="{$basePath}{$imgBackPlaceholder}">
+				</div>
+			</td>
+		</tr>
+		
+		<tr>
+			<th class="label">{label bravery/}</th>
+			<td colspan="2">{input bravery}</td>
+			<td><span class="error">{$form['bravery']->error}</span></td>
+		</tr>
+		<tr>
+			<th class="label">{label founded/}</th>
+			<td colspan="2">{input founded}</td>
+			<td><span class="error">{$form['founded']->error}</span></td>
+		</tr>
+		<tr>
+			<th class="label">{label amount/}</th>
+			<td colspan="2">{input amount}</td>
+			<td><span class="error">{$form['amount']->error}</span></td>
+		</tr>
+		<tr>
+			<td colspan="2">{input send}</td>
+		</tr>
+	</table>
+	{/form}
+</div>
+
+<script>
+$(document).ready(function() {
+
+	$("#frm-coasterForm-form-bravery").autocomplete({
+		source: $("[name='braveryData']").val().replace(/#/g,' ').split(","),
+		select: function (event, value) {
+ 			event.preventDefault();
+			$("[name='bravery']").val(value.item.value.slice(0, -5));
+			$("[name='founded']").val(value.item.value.slice(-5).trim());
+			console.log(value.item.value.slice(-5));
+		}
+	});
+		
+// 	$('#frm-coasterForm-form-imageFront').bind('change', function() {
+// 	    var str = "";
+// 	    str = $(this).val().split('\\').pop();
+// 	    $("#input-file-front").text(str);
+// 	});
+	
+// 	$('#frm-coasterForm-form-imageBack').bind('change', function() {
+// 	    var str = "";
+// 	    str = $(this).val().split('\\').pop();
+// 	    $("#input-file-back").text(str);
+// 	});
+});
+</script>

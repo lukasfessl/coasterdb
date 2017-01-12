@@ -1,0 +1,21 @@
+<svg width="400" height="200" xmlns="http://www.w3.org/2000/svg">
+ <defs>
+  <radialGradient gradientUnits="userSpaceOnUse" r="276.6305" cy="94.4341" cx="196.5469" id="SVGID_1_">
+   <stop stop-color="#3AA9D7" offset="0"/>
+   <stop stop-color="#2BA3D4" offset="1"/>
+  </radialGradient>
+ </defs>
+ <g>
+  <title>background</title>
+  <rect fill="none" id="canvas_background" height="402" width="582" y="-1" x="-1"/>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <rect stroke="null" x="73" y="-25" id="svg_1" height="250" width="250" fill="url(#SVGID_1_)"/>
+  <g id="svg_2">
+   <path id="svg_3" d="m145.254,56.93l0,86.14l109.492,0l0,-86.14l-109.492,0zm100.67,76.799l-91.33,0l0,-67.459l91.33,0l0,67.459l0,0z" fill="#FFFFFF"/>
+   <polygon id="svg_4" points="159.506,126.463 178.329,106.68 185.382,109.73 207.635,86.04 216.393,96.519 220.348,94.132   241.732,126.463  " fill="#FFFFFF"/>
+   <circle id="svg_5" r="8.222" cy="83.424" cx="181.251" fill="#FFFFFF"/>
+  </g>
+ </g>
+</svg>

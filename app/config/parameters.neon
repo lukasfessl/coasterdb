@@ -1,0 +1,7 @@
+parameters:
+	paginator:
+		itemPerPage: 10
+		paginatorRange: 5
+		
+	password:
+		salt: we2sfaAm?s!sTdfDA2s	
