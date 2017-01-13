@@ -14,13 +14,6 @@ class CoasterRepository extends BaseRespository
 	{
 		$this->connection = $connection;
 	}
-
-
-// 	public function addCoaster($braveryId, $amount, $userId, $imageFrontName, $imageBackName) {
-// 		$result = $this->connection->query("INSERT INTO coaster (bravery_id, user_id, amount, front_image, back_image, date_create, last_updated)
-// 				values ('$braveryId', '$userId', '$amount', '$imageFrontName' , '$imageBackName' ,'" . $this->getDate() . "', '" . $this->getDate() . "')");
-// 		return $result;
-// 	}
 	
 	public function addCoaster($braveryId, $amount, $userId, $imageFrontName, $imageBackName) {
 		$result = $this->connection->query("INSERT INTO coaster", array(
@@ -62,16 +55,36 @@ class CoasterRepository extends BaseRespository
 		return $result;
 	}
 
-	public function getCoasters($userId, $limit, $offset) {
+	public function getCoasters($userId, $limit, $offset, $filtrParams) {
 		$result = $this->connection->query("SELECT coaster.*, bravery.name as bravery_name, bravery.founded as bravery_founded FROM coaster
 				INNER JOIN bravery
 				ON bravery.id = coaster.bravery_id
-				WHERE coaster.user_id = '$userId'
-				ORDER BY coaster.id DESC " .
+				WHERE coaster.user_id = '$userId'" .
+				$this->getSortString($filtrParams) .
 				($limit && $offset >= 0 ? "LIMIT $limit OFFSET $offset" : ''))->fetchAll();
 				return $result;
 	}
 
+
+	private function getSortString($filtrParams) {
+		$sql = " ORDER BY ";
+		if ($filtrParams->getSort() == 'bravery') {
+			$sql .= "bravery.name";
+		} else if ($filtrParams->getSort() == 'founded') {
+			$sql .= "bravery.founded";
+		} else {
+			$sql .= "coaster.date_create";
+		}
+
+		if ($filtrParams->getOrder() == null) {
+			$sql .= " DESC ";
+		} else {
+			$sql .= " " . $filtrParams->getOrder() ." ";
+		}
+
+		return $sql;
+	}
+	
 	public function countCoasters($userId) {
 		$result = $this->connection->query("SELECT COUNT(*) as count FROM coaster WHERE user_id='$userId'")->fetch();
 		return $result[0];

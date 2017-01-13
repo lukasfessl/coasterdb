@@ -1,6 +1,7 @@
 log/*
 temp/*
-vendor/*
 .settings/*
+www/upload
+vendor
 app/config/config.local.neon
 

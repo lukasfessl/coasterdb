@@ -90,7 +90,7 @@ ul {
 }
 
 .coaster-item span:first-child p {
-	display: inline-block;
+	width: 100%;d
 	margin-bottom: 10px;
 	float: left;
 }

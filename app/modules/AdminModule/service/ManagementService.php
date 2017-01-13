@@ -26,7 +26,6 @@ class ManagementService {
 	// ~ Coasters
 
 	public function addCoaster($braveryName, $founded, $amount, $userId, $imageFront, $imageBack, $fileType) {
-// 		$braveryName = addslashes($braveryName);
 		$bravery = $this->braveryRepository->getBraveryByNameAndFounded($braveryName, $founded);
 		if ($bravery == null) {
 			$bravery = $this->braveryRepository->addBravery($braveryName, $founded);
@@ -36,8 +35,7 @@ class ManagementService {
 	}
 
 
-	public function updateCoaster($coasterId, $braveryName, $founded, $amount, $userId, $imageFront, $imageBack, $fileType) {
-// 		$braveryName = addslashes($braveryName);
+	public function updateCoaster($coasterId, $braveryName, $founded, $amount, $userId, $imageFront, $imageBack, $fileType) {;
 		$bravery = $this->braveryRepository->getBraveryByNameAndFounded($braveryName, $founded);
 		if ($bravery == null) {
 			$bravery = $this->braveryRepository->addBravery($braveryName, $founded);
@@ -100,8 +98,8 @@ class ManagementService {
 	}
 
 
-	public function getCoasters($userId, $limit = NULL, $offset = NULL) {
-		return $this->getCoasterRepository()->getCoasters($userId, $limit, $offset);
+	public function getCoasters($userId, $limit = NULL, $offset = NULL, $filtrParams = NULL) {
+		return $this->getCoasterRepository()->getCoasters($userId, $limit, $offset, $filtrParams);
 	}
 
 

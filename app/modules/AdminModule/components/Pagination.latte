@@ -1,29 +1,28 @@
 {var $left = false}
 {var $right = false}
 
+<ul class="uk-pagination {$position}">
+	<li><a href="{$control->getUrl(1)}"><i class="uk-icon-angle-double-left"></i></a></li>
+	{for $i = 1; $i <= $paginator->getPageCount(); $i++}
 
-	<ul class="uk-pagination {$position}">
-		<li><a href="?page=1"><i class="uk-icon-angle-double-left"></i></a></li>
-		{for $i = 1; $i <= $paginator->getPageCount(); $i++}
-	
-			{if $paginator->getPage() > $i - $paginatorRange && $paginator->getPage() < $i + $paginatorRange}	
-				{if $paginator->getPage() > $paginatorRange && !$left}
-					{var $left = true}
-					<li>...</li>
-				{/if}
-		
-				{if $paginator->getPage() == $i}
-					<li class="uk-active"><span>{$i}</span></li>
-				{else}
-		    		<li><a href="?page={$i}" class="">{$i}</a></li>
-		    	{/if}    	
-	    	{/if}
-	    	
-	    		    	
-	    	{if $paginator->getPage() + $paginatorRange - 1 < $i && !$right}
-				{var $right = true}
+		{if $paginator->getPage() > $i - $paginatorRange && $paginator->getPage() < $i + $paginatorRange}	
+			{if $paginator->getPage() > $paginatorRange && !$left}
+				{var $left = true}
 				<li>...</li>
 			{/if}
-	    {/for}
-	    <li><a href="?page={$paginator->getPageCount()}"><i class="uk-icon-angle-double-right"></i></a></li>
-	</ul>
+	
+			{if $paginator->getPage() == $i}
+				<li class="uk-active"><span>{$i}</span></li>
+			{else}
+	    		<li><a href="{$control->getUrl($i)}" class="">{$i}</a></li>
+	    	{/if}    	
+    	{/if}
+    	
+    		    	
+    	{if $paginator->getPage() + $paginatorRange - 1 < $i && !$right}
+			{var $right = true}
+			<li>...</li>
+		{/if}
+    {/for}
+    <li><a href="{$control->getUrl($paginator->getPageCount())}"><i class="uk-icon-angle-double-right"></i></a></li>
+</ul>
