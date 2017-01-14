@@ -16,7 +16,7 @@
 <div n:inner-foreach="$coasters as $coaster" class="custom-grid-1-2 custom-grid-1-3 custom-grid-1-4 custom-grid-1-5 custom-grid-1-6 coaster-list-wrapper">
 	<div class="coaster-item">
 		<span>
-			<p>{$coaster['bravery_name']} ({$coaster['bravery_founded']})</p>
+			<p>{$coaster['bravery_name']} {if $coaster['bravery_founded']}({$coaster['bravery_founded']}){/if}</p>
 			<span class="coaster-button-wrapper">
 				<a class="coaster-button coaster-remove" href="#remove-modal-{$coaster[id]}" data-uk-modal><i class="uk-icon-remove"></i></a>
 				<a class="coaster-button coaster-edit" n:href="Coaster:edit $coaster[id]"><i class="uk-icon-pencil"></i></a>

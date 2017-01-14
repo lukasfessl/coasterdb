@@ -1,4 +1,4 @@
- <div class="uk-form">
+<div class="uk-form">
 	{form form}
 	<table>
 		<tr>
@@ -28,7 +28,6 @@
 				</div>
 			</td>
 		</tr>
-		
 		<tr>
 			<th class="label">{label bravery/}</th>
 			<td colspan="2">{input bravery}</td>
@@ -53,27 +52,26 @@
 
 <script>
 $(document).ready(function() {
-
+	
 	$("#frm-coasterForm-form-bravery").autocomplete({
-		source: $("[name='braveryData']").val().replace(/#/g,' ').split(","),
-		select: function (event, value) {
- 			event.preventDefault();
-			$("[name='bravery']").val(value.item.value.slice(0, -5));
-			$("[name='founded']").val(value.item.value.slice(-5).trim());
-			console.log(value.item.value.slice(-5));
+		source:  function (request, response) {
+	           var data = JSON.parse($("[name='braveryData']").val());
+	           response($.map(data, function (value, key) {
+	        	   if (value.bravery.toLowerCase().search(request.term.toLowerCase()) !== -1) {
+	        		    return {
+							label: value.bravery + " " +value.founded,
+		                    bravery: value.bravery,
+		                    founded: value.founded
+	                    }
+	        	   }
+	            }));
+	    },
+		select: function (event, value) {	
+			$("[name='bravery']").val(value.item.bravery);
+			$("[name='founded']").val(value.item.founded);
+			event.preventDefault();
 		}
 	});
-		
-// 	$('#frm-coasterForm-form-imageFront').bind('change', function() {
-// 	    var str = "";
-// 	    str = $(this).val().split('\\').pop();
-// 	    $("#input-file-front").text(str);
-// 	});
-	
-// 	$('#frm-coasterForm-form-imageBack').bind('change', function() {
-// 	    var str = "";
-// 	    str = $(this).val().split('\\').pop();
-// 	    $("#input-file-back").text(str);
-// 	});
+
 });
 </script>

@@ -21,7 +21,8 @@ class CoasterForm extends Control
 		
 	}
 	
-	public function createComponentForm() {
+	public function createComponentForm()
+	{
 		$coasterId = $this->presenter->getParameter('id');
 		if ($coasterId != null && !is_numeric($coasterId)) {
 			throw new ApplicationException();
@@ -56,14 +57,15 @@ class CoasterForm extends Control
 		$form->addText('bravery', 'Bravery', 30)->setValue($this->coaster['bravery_name'])->addRule(Form::MIN_LENGTH, "Bravery have to be fill", 1);
 		$form->addText('founded', 'Founded', 30)->setValue($this->coaster['bravery_founded'])->addCondition(Form::REQUIRED)->addRule(Form::NUMERIC, "Value has to be number.");
 		$form->addText('amount', 'Amount', 30)->setValue($this->coaster['amount'])->addCondition(Form::REQUIRED)->addRule(Form::NUMERIC, "Value has to be number.");
-		$form->addHidden('braveryData')->setValue(implode(",", $this->formateBraveries($this->managementService->getBraveries())));
+		$form->addHidden('braveryData')->setValue($this->formateBraveries($this->managementService->getBraveries()));
 		$form->addSubmit('send', $coasterId ? 'Update' : 'Save')->setAttribute('class', 'uk-button');
 		$form->onSuccess[] = $this->process;
 		
 		return $form;
 	}
 
-	public function process($form) {
+	public function process($form)
+	{
 		$values = $form->getValues();
 
 		$fileType = Strings::split($values->imageFront->name ? $values->imageFront->name : $values->imageBack->name, '~\\.~');
@@ -112,12 +114,13 @@ class CoasterForm extends Control
 		$this->template->render();
 	}
 	
-	private function formateBraveries($braveries) {
+	private function formateBraveries($braveries)
+	{
 		$braveriesArray = array();
 		foreach ($braveries as $bravery) {
-			array_push($braveriesArray, $bravery['name'] . "#" . $bravery['founded']);
+			array_push($braveriesArray, array('bravery' => $bravery['name'], 'founded' => $bravery['founded']));
 		}
 		
-		return $braveriesArray;
+		return json_encode($braveriesArray);
 	}
 }
