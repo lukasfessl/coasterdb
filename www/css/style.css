@@ -90,7 +90,7 @@ ul {
 }
 
 .coaster-item span:first-child p {
-	width: 100%;d
+	width: 100%;
 	margin-bottom: 10px;
 	float: left;
 }
@@ -162,22 +162,41 @@ ul {
 	width: 80px;
 }
 
-.paginator-wrapper {
+.filter-wrapper {
 	width: 100%;
     float: right;
     margin-top: 10px; 
 }
 
-.paginator-wrapper-top {
-	margin-top: -35px;
+.filter-wrapper-top {
+	margin-top: -40px;
 }
 
-.uk-pagination {
-   margin-right: 2.5%;
+.paginator, .filter {
+	float: right;
+}
+
+.filter table {
+	border-spacing: 0px;
+}
+
+.paginator {
+	 margin-right: 2.5%;
+	 margin-top: 1px;
+	 margin-left: 50px;
+}
+
+.filter-wrapper td {
+	padding-left: 10px;
 }
 
 .error {
 	color: red;
+}
+
+.coaster-list-wrapper {
+	width: 100%;
+	float: left;
 }
 
 @media screen and (min-width: 1367px) and (max-width: 1920px) {
