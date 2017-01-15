@@ -23,7 +23,7 @@ class Filter extends Control
 		$form->addSelect('order', 'Order:', $this->filterParams->getOrderParams())
 				->setDefaultValue($this->presenter->getParameter('order') ? $this->presenter->getParameter('order') : 'desc');
 		$form->addSelect('sortBy', 'Sort By:',$this->filterParams->getSortParams())
-				->setDefaultValue($this->presenter->getParameter('sortBy') ? $this->presenter->getParameter('sortBy') : 'inserted');
+				->setDefaultValue($this->presenter->getParameter('sort') ? $this->presenter->getParameter('sort') : 'inserted');
 		$form->addSubmit('search', 'Search')->setAttribute('class', 'uk-button');
 		$form->onSuccess[] = $this->process;
 		
