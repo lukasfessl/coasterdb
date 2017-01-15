@@ -20,9 +20,10 @@ class Filter extends Control
 	public function createComponentForm() 
 	{
 		$form = new Form();
+		$form->addText('braveryName', 'Bravery name:')->setDefaultValue($this->presenter->getParameter('like'));
 		$form->addSelect('order', 'Order:', $this->filterParams->getOrderParams())
 				->setDefaultValue($this->presenter->getParameter('order') ? $this->presenter->getParameter('order') : 'desc');
-		$form->addSelect('sortBy', 'Sort By:',$this->filterParams->getSortParams())
+		$form->addSelect('sortBy', 'Sort by:',$this->filterParams->getSortParams())
 				->setDefaultValue($this->presenter->getParameter('sort') ? $this->presenter->getParameter('sort') : 'inserted');
 		$form->addSubmit('search', 'Search')->setAttribute('class', 'uk-button');
 		$form->onSuccess[] = $this->process;
@@ -37,6 +38,7 @@ class Filter extends Control
 
 		$this->filterParams->setOrder($values['order']);
 		$this->filterParams->setSort($values['sortBy']);
+		$this->filterParams->setLike($values['braveryName']);
 		$this->filterParams->setPage($this->presenter->getParameter('page'));
 
 		$this->presenter->redirect('this', $this->filterParams->getParams());

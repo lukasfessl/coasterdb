@@ -60,6 +60,7 @@ class CoasterRepository extends BaseRespository
 				INNER JOIN bravery
 				ON bravery.id = coaster.bravery_id
 				WHERE coaster.user_id = '$userId'" .
+				$this->getLikeString($filtrParams->getLike()) .
 				$this->getSortString($filtrParams) .
 				($limit && $offset >= 0 ? "LIMIT $limit OFFSET $offset" : ''))->fetchAll();
 				return $result;
@@ -85,9 +86,20 @@ class CoasterRepository extends BaseRespository
 		return $sql;
 	}
 	
-	public function countCoasters($userId) {
-		$result = $this->connection->query("SELECT COUNT(*) as count FROM coaster WHERE user_id='$userId'")->fetch();
+	public function countCoasters($userId, $like = NULL) {
+		$result = $this->connection->query("SELECT COUNT(*) as count FROM coaster 
+				INNER JOIN bravery on coaster.bravery_id = bravery.id
+				WHERE coaster.user_id='$userId'" . $this->getLikeString($like))->fetch();
 		return $result[0];
+	}
+	
+	private function getLikeString($like) {
+		if (empty($like)) {
+			return;
+		}
+		
+		$sql = " AND (bravery.name LIKE '%".$like."%' OR bravery.founded LIKE '%".$like."%')";
+		return $sql;
 	}
 
 	public function getCoaster($coasterId, $userId = null) {

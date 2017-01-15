@@ -23,17 +23,18 @@ class CoasterPresenter extends BasePresenter
 		return new CoasterForm($this->managementService, $this->user['id']);
 	}
 
-	public function renderList($order = null, $sort = null, $page = null) {
+	public function renderList($order = null, $sort = null, $like, $page = null) {
 		$this->template->user = $this->user;
 		
 		$paginatorParams = $this->context->parameters['paginator'];
-		$totalItemCount = $this->managementService->countCoasters($this->user['id']);
+		$totalItemCount = $this->managementService->countCoasters($this->user['id'], $like);
 		$paginator = new Pagination($totalItemCount, $page, $paginatorParams['itemPerPage']);
 		$paginator = $paginator->getPaginator();
 		
 		$filtrParams = new FilterParams();
 		$filtrParams->setOrder($order);
 		$filtrParams->setSort($sort);
+		$filtrParams->setLike($like);
 		$this->template->coasters =	$this->managementService->getCoasters($this->user['id'], $paginator->getItemsPerPage(), $paginator->getOffset(), $filtrParams);
 	}
 	
@@ -43,8 +44,9 @@ class CoasterPresenter extends BasePresenter
 	
 	public function createComponentPagination() {
 		$page = $this->getParameter('page');
+		$like = $this->getParameter('like');
 		$paginatorParams = $this->context->parameters['paginator'];
-		$totalItemCount = $this->managementService->countCoasters($this->user['id']);
+		$totalItemCount = $this->managementService->countCoasters($this->user['id'], $like);
 		return new Pagination($totalItemCount, $page, $paginatorParams['itemPerPage'], $paginatorParams['paginatorRange'], 'right');
 	}
 	

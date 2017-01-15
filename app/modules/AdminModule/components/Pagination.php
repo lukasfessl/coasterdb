@@ -47,6 +47,7 @@ class Pagination extends Control
 		$filerParams = new FilterParams();
 		$filerParams->setOrder($this->presenter->getParameter('order'));
 		$filerParams->setSort($this->presenter->getParameter('sort'));
+		$filerParams->setLike($this->presenter->getParameter('like'));
 		$filerParams->setPage($page);
 		return $this->presenter->link('this', $filerParams->getParams());
 	}

@@ -108,8 +108,8 @@ class ManagementService {
 	}
 
 
-	public function countCoasters($userId) {
-		return $this->getCoasterRepository()->countCoasters($userId);
+	public function countCoasters($userId, $like = NULL) {
+		return $this->getCoasterRepository()->countCoasters($userId, preg_replace("/[^A-Za-z0-9 ]/", '', $like));
 	}
 
 	public function getDashboardData($userId) {

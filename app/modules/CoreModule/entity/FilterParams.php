@@ -7,6 +7,7 @@ class FilterParams {
 	private $page;
 	private $order;
 	private $sort;
+	private $like;
 	
 	private $params;
 	
@@ -60,11 +61,25 @@ class FilterParams {
 	
 	
 	
+	public function setLike($like) {
+		if (!empty($like)) {
+			$like = preg_replace("/[^A-Za-z0-9 ]/", '', $like);
+			$this->params['like'] = $like;
+			$this->like = $like;
+		}
+	}
+	
+	public function getLike() {
+		return $this->like;
+	}
+	
 	public function getParams() {
 		return $this->params;
 	}
 	
 	
+	
+	// ~ SEARCH PARAMS ~
 	
 	public function getOrderParams() {
 		return $this->orderParams;
