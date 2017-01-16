@@ -15,28 +15,20 @@ class BraveryRepository extends BaseRespository
 		$this->connection = $connection;
 	}
 
-	public function getBraveries() {
-		$result = $this->connection->query("SELECT * FROM bravery ORDER BY id DESC")->fetchAll();
-		if ($result == null) {
-			return array();
-		}
-		return $result;
-	}
-
-// 	public function getBraveryByNameAndFounded($bravery, $founded) {
-// 		$result = $this->connection->query("SELECT * FROM bravery WHERE name='$bravery' AND founded='$founded'")->fetch();
-// 		return $result;
-// 	}
-	
-	public function getBraveryByNameAndFounded($bravery, $founded) {
-		$result = $this->connection->query("SELECT * FROM bravery WHERE", array(
-				'name' => $bravery,
-				'founded' => $founded)
-				)->fetch();
+	public function getBraveries()
+	{
+		$result = $this->connection->table('bravery')->order('id DESC')->fetchAll();
 		return $result;
 	}
 	
-	public function addBravery($bravery, $founded) {
+	public function getBraveryByNameAndFounded($bravery, $founded)
+	{
+		$result = $this->connection->table('bravery')->where('name = ? AND founded = ?', array($bravery, $founded))->fetch();
+		return $result;
+	}
+	
+	public function addBravery($bravery, $founded)
+	{
 		$result = $this->connection->table("bravery")->insert(array(
 				'name' => $bravery,
 				'founded' => $founded,
