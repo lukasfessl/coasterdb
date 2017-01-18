@@ -5,7 +5,8 @@ namespace App\Modules\AdminModule\Service;
 use App\Modules\Core\Repository\UserRepository;
 use App\Modules\Core\Repository\CoasterRepository;
 use App\Modules\Core\Repository\BraveryRepository;
-use App\Modules\Core\Utils\Password;
+use App\Modules\Core\Utils\Hash;
+use Nette\Utils\Strings;
 
 class ManagementService {
 
@@ -136,7 +137,7 @@ class ManagementService {
 	}
 
 	public function createUser($nick, $email, $password, $role) {
-		$this->userRepository->createUser($nick, $email, Password::hash($password, $this->params['salt']), $role);
+		return $this->userRepository->createUser($nick, $email, Hash::sha1($password, $this->params['salt']), $role);
 	}
 
 	public function getUserByEmail($email) {
@@ -144,7 +145,13 @@ class ManagementService {
 	}
 
 	public function updatePassword($userId, $password) {
-		return $this->userRepository->updatePassword($userId, Password::hash($password, $this->params['salt']));
+		return $this->userRepository->updatePassword($userId, Hash::sha1($password, $this->params['salt']));
+	}
+	
+	public function updatePublicLink($user, $publicLinkActive) {
+		$publicLink = $user['id'] . "-" .$user['date_create']->getTimestamp();
+		$publicLink = Hash::sha1($publicLink);
+		$this->userRepository->updatePublicLink($user['id'], $publicLink, $publicLinkActive);
 	}
 
 

@@ -3,12 +3,12 @@
 namespace App\Modules\Core\Utils;
 
 
-abstract class Password extends \Nette\Object
+abstract class Hash extends \Nette\Object
 {
-	public static function hash($password, $salt = NULL)
+	public static function sha1($string, $salt = NULL)
 	{
-		$password = sha1($password.$salt);
+		$string = sha1($string.$salt);
 
-		return $password;
+		return $string;
 	}
 }

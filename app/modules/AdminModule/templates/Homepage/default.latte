@@ -1,10 +1,12 @@
 {block content}
 
-<h3 class="uk-panel-title">Dashboard page</h3>
-{$presenter->getDumpUser()}
-
-<span>Unique Coasters Count: <b>{$coastersUniqueCount}</b></span>
-</br>
-<span>Total Coasters Count: <b>{$coastersTotalCount}</b></span>
+<div class="uk-panel uk-panel-box content">
+	<h3 class="uk-panel-title">Dashboard page</h3>
+	{$presenter->getDumpUser()}
+	
+	<span>Unique Coasters Count: <b>{$coastersUniqueCount}</b></span>
+	</br>
+	<span>Total Coasters Count: <b>{$coastersTotalCount}</b></span>
+</div>
 
 {/block}

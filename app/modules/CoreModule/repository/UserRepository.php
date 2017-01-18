@@ -22,13 +22,19 @@ class UserRepository extends BaseRespository
 	}
 
 	public function getUserByCredentials($email, $password) {
-		$result = $this->connection->query("SELECT * FROM user WHERE email='$email' AND password='$password'")->fetch();
+		$result = $this->connection->table('user')->where('email = ? AND password = ?', array($email, $password))->fetch();
 		return $result;
 	}
 
 	public function createUser($nick, $email, $password, $role) {
-		$result = $this->connection->query("INSERT INTO user (nick, email, password, role, date_create, last_updated)
-				VALUES ('$nick', '$email', '$password', '$role', '" . $this->getDate() . "', '" . $this->getDate() . "')");
+		$result = $this->connection->table('user')->insert(array(
+				'nick' => $nick,
+				'email' => $email,
+				'password' => $password,
+				'role' => $role,
+				'date_create' => $this->getDate(),
+				'last_updated' => $this->getDate()
+		));
 		return $result;
 	}
 
@@ -39,6 +45,12 @@ class UserRepository extends BaseRespository
 
 	public function updatePassword($userId, $password) {
 		$result = $this->connection->query("UPDATE user SET password='$password', last_updated='" . $this->getDate() . "' WHERE id='$userId'");
+		return $result;
+	}
+	
+	public function updatePublicLink($userId, $publicLink, $publicLinkActive) {
+		$result = $this->connection->table('user')->where('id = ?', $userId)
+				->update(array('public_link' => $publicLink, 'public_link_active' => $publicLinkActive, 'last_updated' => $this->getDate()));
 		return $result;
 	}
 

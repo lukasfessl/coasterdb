@@ -19,7 +19,6 @@ class RegistrationForm extends Control
 	
 	public function createComponentForm()
 	{
-		
 		$form = new Form();
 		$form->addText('nick', 'Nick:', 30);
 		$form->addText('email', 'E-mail:', 30)->addRule(Form::MIN_LENGTH, "E-mail has to be fill.", 1)->addRule(Form::EMAIL, "This is not corrent E-mail.")
@@ -40,7 +39,8 @@ class RegistrationForm extends Control
 	{
 		$values = $form->getValues();
 
-		$this->managementService->createUser($values['nick'], $values['email'], $values['password1'], Role::ADMIN);
+		$user = $this->managementService->createUser($values['nick'], $values['email'], $values['password1'], Role::ADMIN);
+		$this->managementService->updatePublicLink($user, FALSE);
 		$this->presenter->flashMessage('Account was created.');
 		$this->presenter->redirect('Auth:default');
 	}

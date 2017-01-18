@@ -2,13 +2,19 @@
 	<script type="text/javascript" src="{$basePath}/lib/uikit/js/components/notify.js"></script>
 {/block}
 
-{block content}
 
-<h3 class="uk-panel-title">Change Password</h3>
-{control userUpdateForm}
+{block content}
+<div class="uk-panel uk-panel-box content">
+	<h3 class="uk-panel-title">Change Password</h3>
+	{control userUpdateForm}
+</div>
+
+<div class="uk-panel uk-panel-box content">
+	<h3 class="uk-panel-title">Public link</h3>
+	{control publicLinkForm}
+</div>
 
 <script>
-
 '{foreach $flashes as $flash}'
 	UIkit.notify({
 		message : '<i class=\'uk-icon-check\'></i> ' + {$flash->message},
