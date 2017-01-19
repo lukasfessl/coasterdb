@@ -103,7 +103,6 @@ class ManagementService {
 		return $this->getCoasterRepository()->getCoasters($userId, $limit, $offset, $filtrParams);
 	}
 
-
 	public function getCoaster($coasterId, $userId) {
 		return $this->getCoasterRepository()->getCoaster($coasterId, $userId);
 	}
@@ -152,6 +151,11 @@ class ManagementService {
 		$publicLink = $user['id'] . "-" .$user['date_create']->getTimestamp();
 		$publicLink = Hash::sha1($publicLink);
 		$this->userRepository->updatePublicLink($user['id'], $publicLink, $publicLinkActive);
+	}
+	
+	public function getUserByPublicLink($publicLink) {
+		$publicLink = preg_replace("/[^A-Za-z0-9 ]/", '', $publicLink);
+		return $this->userRepository->getUserByPublicLink($publicLink);
 	}
 
 

@@ -1,5 +1,36 @@
+{block head}
+	<script type="text/javascript" src="{$basePath}/lib/uikit/js/components/lightbox.js"></script>
+	<script type="text/javascript" src="{$basePath}/lib/uikit/js/components/notify.js"></script>
+{/block}
+
+
+
 {block content}
 
-Public page
+<div class="uk-panel uk-panel-box content">
+	<h3 class="uk-panel-title">Coaster List</h3>
+	<div class="filter-wrapper filter-wrapper-top">
+		{control pagination}
+		{control coasterFilter}
+	</div>
+	
+	<div n:inner-foreach="$coasters as $coaster" class="custom-grid-1-2 custom-grid-1-3 custom-grid-1-4 custom-grid-1-5 custom-grid-1-6 coaster-list-wrapper">
+		<div class="coaster-item">
+			<span>
+				<p>{$coaster['bravery_name']} {if $coaster['bravery_founded']}({$coaster['bravery_founded']}){/if}</p>
+			</span>
+			<a href="{$basePath}/upload/{$user[id]}/{$coaster[front_image]}" data-uk-lightbox="{ group:'{$coaster[id]}' }">
+				<img src="{$basePath}/upload/{$user[id]}/thumb_{$coaster[front_image]}" title="Front">
+			</a>
+			<a href="{$basePath}/upload/{$user[id]}/{$coaster[back_image]}" data-uk-lightbox="{ group:'{$coaster[id]}' }">
+				<img src="{$basePath}/upload/{$user[id]}/thumb_{$coaster[back_image]}" title="Back">
+			</a>			
+		</div>
+	</div>
+	
+	<div class="filter-wrapper">
+		{control pagination}
+	</div>
+</div>
 
 {/block}

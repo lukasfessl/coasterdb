@@ -54,5 +54,9 @@ class UserRepository extends BaseRespository
 		return $result;
 	}
 
+	public function getUserByPublicLink($publicLink) {
+		$result = $this->connection->table('user')->where('public_link = ?', $publicLink)->fetch();
+		return $result;
+	}
 
 }

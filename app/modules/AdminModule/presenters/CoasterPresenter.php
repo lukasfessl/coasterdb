@@ -23,7 +23,7 @@ class CoasterPresenter extends BasePresenter
 		return new CoasterForm($this->managementService, $this->user['id']);
 	}
 
-	public function renderList($order = null, $sort = null, $like, $page = null) {
+	public function renderList($order = null, $sort = null, $like = null, $page = null) {
 		$this->template->user = $this->user;
 		
 		$paginatorParams = $this->context->parameters['paginator'];
