@@ -18,6 +18,7 @@ class HomepagePresenter extends BasePresenter
 		$data = $this->managementService->getDashboardData($this->user['id']);
 		$this->template->coastersUniqueCount = $data['coastersUniqueCount'];
 		$this->template->coastersTotalCount = $data['coastersTotalCount'];
+		$this->template->braveryCoasters = $data['braveryCoasterCount'];
 	}
 
 	public function getDumpUser() {

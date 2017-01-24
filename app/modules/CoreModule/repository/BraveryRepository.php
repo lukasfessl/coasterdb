@@ -37,4 +37,13 @@ class BraveryRepository extends BaseRespository
 		));
 		return $result;
 	}
+	
+	public function getBraveryCoasterCount($user) {
+		$result = $this->connection->query("SELECT bravery.name, COUNT(coaster.bravery_id) as count FROM coaster
+				INNER JOIN bravery ON bravery.id = coaster.bravery_id 
+				WHERE coaster.user_id = '$user'
+				GROUP BY bravery_id
+				ORDER BY bravery.name ASC")->fetchAll();
+		return $result;
+	}
 }

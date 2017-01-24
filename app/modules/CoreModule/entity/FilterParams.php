@@ -63,7 +63,7 @@ class FilterParams {
 	
 	public function setLike($like) {
 		if (!empty($like)) {
-			$like = preg_replace("/[^A-Za-z0-9 ]/", '', $like);
+// 			$like = preg_replace("/[^A-Za-z0-9 ]/", '', $like);
 			$this->params['like'] = $like;
 			$this->like = $like;
 		}

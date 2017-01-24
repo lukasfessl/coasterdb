@@ -56,14 +56,26 @@ class CoasterRepository extends BaseRespository
 	}
 
 	public function getCoasters($userId, $limit, $offset, $filtrParams) {
-		$result = $this->connection->query("SELECT coaster.*, bravery.name as bravery_name, bravery.founded as bravery_founded FROM coaster
-				INNER JOIN bravery
-				ON bravery.id = coaster.bravery_id
-				WHERE coaster.user_id = '$userId'" .
-				$this->getLikeString($filtrParams->getLike()) .
-				$this->getSortString($filtrParams) .
-				($limit && $offset >= 0 ? "LIMIT $limit OFFSET $offset" : ''))->fetchAll();
-				return $result;
+		$like = $filtrParams->getLike();
+
+		if (!$like) {
+			$result = $this->connection->query("SELECT coaster.*, bravery.name as bravery_name, bravery.founded as bravery_founded FROM coaster
+					INNER JOIN bravery
+					ON bravery.id = coaster.bravery_id
+					WHERE coaster.user_id = '$userId'" .
+					$this->getSortString($filtrParams) .
+					($limit && $offset >= 0 ? "LIMIT $limit OFFSET $offset" : ''))->fetchAll();
+		} else {
+			$result = $this->connection->query("SELECT coaster.*, bravery.name as bravery_name, bravery.founded as bravery_founded FROM coaster
+					INNER JOIN bravery
+					ON bravery.id = coaster.bravery_id
+					WHERE coaster.user_id = '$userId'
+					AND (bravery.name LIKE ? OR bravery.founded LIKE ?) " .
+					$this->getSortString($filtrParams) .
+					($limit && $offset >= 0 ? "LIMIT $limit OFFSET $offset" : ''), '%'. $like .'%', '%'. $like .'%')->fetchAll();
+		}
+					
+		return $result;
 	}
 
 
@@ -89,19 +101,10 @@ class CoasterRepository extends BaseRespository
 	public function countCoasters($userId, $like = NULL) {
 		$result = $this->connection->query("SELECT COUNT(*) as count FROM coaster 
 				INNER JOIN bravery on coaster.bravery_id = bravery.id
-				WHERE coaster.user_id='$userId'" . $this->getLikeString($like))->fetch();
+				WHERE coaster.user_id='$userId' AND (bravery.name LIKE ? OR bravery.founded LIKE ?)", $like, $like)->fetch();
 		return $result[0];
 	}
 	
-	private function getLikeString($like) {
-		if (empty($like)) {
-			return;
-		}
-		
-		$sql = " AND (bravery.name LIKE '%".$like."%' OR bravery.founded LIKE '%".$like."%')";
-		return $sql;
-	}
-
 	public function getCoaster($coasterId, $userId = null) {
 		$result = $this->connection->query("SELECT coaster.*, bravery.name as bravery_name, bravery.founded as bravery_founded FROM coaster
 				INNER JOIN bravery

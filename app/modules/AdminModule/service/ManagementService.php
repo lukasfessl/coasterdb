@@ -114,7 +114,8 @@ class ManagementService {
 
 	public function getDashboardData($userId) {
 		$data = array('coastersUniqueCount' => $this->getCoasterRepository()->countUniqueCoasters($userId),
-					'coastersTotalCount' => $this->getCoasterRepository()->countTotalCoasters($userId)		
+					'coastersTotalCount' => $this->getCoasterRepository()->countTotalCoasters($userId),
+					'braveryCoasterCount' => $this->getBraveryRepository()->getBraveryCoasterCount($userId),
 		);
 		return $data;
 	}
