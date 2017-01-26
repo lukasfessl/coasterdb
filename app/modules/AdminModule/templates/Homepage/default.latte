@@ -4,13 +4,15 @@
 	<h3 class="uk-panel-title">Dashboard page</h3>
 <!-- 	{$presenter->getDumpUser()} -->
 	
-	<div n:inner-foreach="$braveryCoasters as $braveryCoaster" class="dashboard-bravery-wrapper">
-		<span class="dashboard-bravery"><a n:href="Coaster:list, like=>$braveryCoaster['name']">{$braveryCoaster['name']}</a> <b>({$braveryCoaster['count']})</b></span>
+	<div class="dashboard-bravery-wrapper">
+		<div n:inner-foreach="$braveryCoasters as $braveryCoaster" class="dashboard-bravery-item">
+			<span class="dashboard-bravery"><a n:href="Coaster:list, like=>$braveryCoaster['name']">{$braveryCoaster['name']}</a> <b>({$braveryCoaster['count']})</b></span>
+		</div>
+		
+		<span>Unique Coasters Count: <b>{$coastersUniqueCount}</b></span>
+		</br>
+		<span>Total Coasters Count: <b>{$coastersTotalCount}</b></span>
 	</div>
-	
-	<span>Unique Coasters Count: <b>{$coastersUniqueCount}</b></span>
-	</br>
-	<span>Total Coasters Count: <b>{$coastersTotalCount}</b></span>
 </div>
 
 {/block}
