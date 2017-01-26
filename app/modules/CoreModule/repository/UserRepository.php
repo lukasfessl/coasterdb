@@ -10,14 +10,14 @@ class UserRepository extends BaseRespository
 	/** @var Nette\Database\Context */
 	private $connection;
 
+	
 	public function __construct(\Nette\Database\Context $connection)
 	{
 		$this->connection = $connection;
 	}
 
-
 	public function getUser($id) {
-		$user = $this->connection->query("SELECT * FROM user WHERE id = '$id'")->fetch();
+		$user = $this->connection->table('user')->where('id = ?', $id)->fetch();
 		return $user;
 	}
 
@@ -37,14 +37,14 @@ class UserRepository extends BaseRespository
 		));
 		return $result;
 	}
-
+	
 	public function getUserByEmail($email) {
-		$result = $this->connection->query("SELECT * FROM user WHERE email='$email'")->fetch();
+		$result = $this->connection->table('user')->where('email = ?', $email)->fetch();
 		return $result;
 	}
 
 	public function updatePassword($userId, $password) {
-		$result = $this->connection->query("UPDATE user SET password='$password', last_updated='" . $this->getDate() . "' WHERE id='$userId'");
+		$result = $this->connection->table('user')->where('id = ?', $userId)->update(array('password' => $password, 'last_updated' => $this->getDate()));
 		return $result;
 	}
 	
