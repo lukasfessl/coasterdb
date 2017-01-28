@@ -109,7 +109,7 @@ class ManagementService {
 
 
 	public function countCoasters($userId, $like = NULL) {
-		return $this->getCoasterRepository()->countCoasters($userId, preg_replace("/[^A-Za-z0-9 ]/", '', $like));
+		return $this->getCoasterRepository()->countCoasters($userId, $like);
 	}
 
 	public function getDashboardData($userId) {
