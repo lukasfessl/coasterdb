@@ -25,7 +25,7 @@ class Filter extends Control
 		$orderParam = $this->presenter->getParameter('order');
 
 		$form = new Form();
-		$form->addText('braveryName', 'Bravery name:')->setDefaultValue($this->presenter->getParameter('like'));
+		$form->addText('breweryName', 'Brewery name:')->setDefaultValue($this->presenter->getParameter('like'));
 		$form->addSelect('order', 'Order:', $this->filterParams->getOrderParams())
 				->setDefaultValue(array_key_exists($orderParam, $filterParams->getOrderParams()) ? $orderParam : 'desc');
 		$form->addSelect('sortBy', 'Sort by:',$this->filterParams->getSortParams())
@@ -43,7 +43,7 @@ class Filter extends Control
 
 		$this->filterParams->setOrder($values['order']);
 		$this->filterParams->setSort($values['sortBy']);
-		$this->filterParams->setLike($values['braveryName']);
+		$this->filterParams->setLike($values['breweryName']);
 		$this->filterParams->setPage($this->presenter->getParameter('page'));
 
 		$this->presenter->redirect('this', $this->filterParams->getParams());

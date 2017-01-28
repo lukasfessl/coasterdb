@@ -1,0 +1,22 @@
+{block content}
+
+<div class="uk-panel uk-panel-box content">
+	<h3 class="uk-panel-title">Brewery Add</h3>
+
+	{control breweryForm}
+
+</div>
+
+
+<script>
+'{foreach $flashes as $flash}'
+	UIkit.notify({
+		message : '<i class=\'uk-icon-check\'></i> ' + {$flash->message},
+	    status  : 'success',
+	    timeout : 1500
+	});
+'{/foreach}'
+</script>
+
+
+{/block}

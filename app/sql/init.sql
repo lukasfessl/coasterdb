@@ -5,8 +5,8 @@ SET time_zone = '+00:00';
 SET foreign_key_checks = 0;
 SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 
-DROP TABLE IF EXISTS `bravery`;
-CREATE TABLE `bravery` (
+DROP TABLE IF EXISTS `brewery`;
+CREATE TABLE `brewery` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) COLLATE utf8_czech_ci NOT NULL,
   `founded` varchar(4) COLLATE utf8_czech_ci NOT NULL,
@@ -19,7 +19,7 @@ CREATE TABLE `bravery` (
 DROP TABLE IF EXISTS `coaster`;
 CREATE TABLE `coaster` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `bravery_id` int(11) NOT NULL,
+  `brewery_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `front_image` varchar(120) COLLATE utf8_czech_ci NOT NULL,
   `back_image` varchar(120) COLLATE utf8_czech_ci NOT NULL,

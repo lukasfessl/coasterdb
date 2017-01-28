@@ -32,6 +32,17 @@
     	</ul>
     	<div class="uk-navbar-flip">
         	<ul class="uk-navbar-nav">
+        		{if $presenter->isUserSuperAdmin()}
+        		<li class="{ifCurrent Brewery:*} uk-active{/ifCurrent}" data-uk-dropdown>
+        			<a n:href="Brewery:list">Brewery</a>
+        			<div class="uk-dropdown">
+						<ul class="uk-nav uk-nav-navbar">
+        					<li><a n:href="Brewery:list">List</a></li>
+        					<li><a n:href="Brewery:add">Add</a></li>
+                       	</ul>
+        			</div>
+        		</li>
+        		{/if}
         		<li class="{ifCurrent Settings:default}uk-active{/ifCurrent}"><a n:href="Settings:default">Settings</a></li>
             	<li><a n:href="logout!">Logout</a></li>
        		</ul>

@@ -2,9 +2,8 @@
 
 namespace App\Modules\AdminModule\Presenters;
 
+use App\Modules\Core\Entity\Role;
 use Nette;
-use Nette\Application\UI\Form;
-use Nette\Utils\Strings;
 
 
 
@@ -30,6 +29,18 @@ class BasePresenter extends Nette\Application\UI\Presenter
 		if (!$user->isLoggedIn()) {
 			$this->redirect('Auth:default');
 		}
+	}
+	
+	public function getUserRole() {
+		return $this->user['role'];
+	}
+	
+	public function isUserSuperAdmin() {
+		if ($this->user['role'] == Role::SUPER_ADMIN) {
+			return true;
+		}
+		
+		return false;
 	}
 	
 }

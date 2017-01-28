@@ -55,8 +55,8 @@ class PublicLinkForm extends Control
 	private function formateBraveries($braveries)
 	{
 		$braveriesArray = array();
-		foreach ($braveries as $bravery) {
-			array_push($braveriesArray, array('bravery' => $bravery['name'], 'founded' => $bravery['founded']));
+		foreach ($braveries as $brewery) {
+			array_push($braveriesArray, array('brewery' => $brewery['name'], 'founded' => $brewery['founded']));
 		}
 		
 		return json_encode($braveriesArray);

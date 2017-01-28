@@ -15,9 +15,9 @@ class CoasterRepository extends BaseRespository
 		$this->connection = $connection;
 	}
 	
-	public function addCoaster($braveryId, $amount, $userId, $imageFrontName, $imageBackName) {
+	public function addCoaster($breweryId, $amount, $userId, $imageFrontName, $imageBackName) {
 		$result = $this->connection->query("INSERT INTO coaster", array(
-				'bravery_id' => $braveryId,
+				'brewery_id' => $breweryId,
 				'amount' => $amount,
 				'user_id' => $userId,
 				'front_image' => $imageFrontName,
@@ -28,7 +28,7 @@ class CoasterRepository extends BaseRespository
 		return $result;
 	}
 
-	public function updateCoaster($coasterId, $braveryId, $amount, $userId, $imageFrontName, $imageBackName) {
+	public function updateCoaster($coasterId, $breweryId, $amount, $userId, $imageFrontName, $imageBackName) {
 		$updateData = array('last_updated' => $this->getDate());
 		if (isset($imageFrontName)) {
 			$updateData['front_image'] = $imageFrontName;
@@ -39,8 +39,8 @@ class CoasterRepository extends BaseRespository
 		if (isset($amount)) {
 			$updateData['amount'] = $amount;
 		}
-		if (isset($braveryId)) {
-			$updateData['bravery_id'] = $braveryId;
+		if (isset($breweryId)) {
+			$updateData['brewery_id'] = $breweryId;
 		}
 		
 		$this->connection->table('coaster')->where('id = ? ', $coasterId)->update($updateData);
@@ -54,13 +54,13 @@ class CoasterRepository extends BaseRespository
 	public function getCoasters($userId, $limit, $offset, $filtrParams) {
 		$like = $filtrParams->getLike();	
 		$arg = array($userId);
-		$sql = "SELECT coaster.*, bravery.name as bravery_name, bravery.founded as bravery_founded FROM coaster
-				INNER JOIN bravery
-				ON bravery.id = coaster.bravery_id
+		$sql = "SELECT coaster.*, brewery.name as brewery_name, brewery.founded as brewery_founded FROM coaster
+				INNER JOIN brewery
+				ON brewery.id = coaster.brewery_id
 				WHERE coaster.user_id = ? ";
 		// like params
 		if ($like) {
-			$sql .= " AND (bravery.name LIKE ? OR bravery.founded LIKE ?)";
+			$sql .= " AND (brewery.name LIKE ? OR brewery.founded LIKE ?)";
 			array_push($arg, "%" . $like . "%", "%" . $like . "%");
 		}
 		// add sort by
@@ -76,10 +76,10 @@ class CoasterRepository extends BaseRespository
 
 	private function getSortString($filtrParams) {
 		$sql = " ORDER BY ";
-		if ($filtrParams->getSort() == 'bravery') {
-			$sql .= "bravery.name";
+		if ($filtrParams->getSort() == 'brewery') {
+			$sql .= "brewery.name";
 		} else if ($filtrParams->getSort() == 'founded') {
-			$sql .= "bravery.founded";
+			$sql .= "brewery.founded";
 		} else {
 			$sql .= "coaster.date_create";
 		}
@@ -96,10 +96,10 @@ class CoasterRepository extends BaseRespository
 	public function countCoasters($userId, $like = NULL) {
 		$arg = array($userId);
 		$sql = "SELECT COUNT(*) as count FROM coaster
-				INNER JOIN bravery on coaster.bravery_id = bravery.id
+				INNER JOIN brewery on coaster.brewery_id = brewery.id
 				WHERE coaster.user_id = ?";
 		if ($like) {
-			$sql .= " AND (bravery.name LIKE ? OR bravery.founded LIKE ?)";
+			$sql .= " AND (brewery.name LIKE ? OR brewery.founded LIKE ?)";
 			array_push($arg, "%" . $like . "%", "%" . $like . "%");
 		}
 		
@@ -109,9 +109,9 @@ class CoasterRepository extends BaseRespository
 	
 	public function getCoaster($coasterId, $userId = null) {
 		$arg = array($coasterId);
-		$sql = "SELECT coaster.*, bravery.name as bravery_name, bravery.founded as bravery_founded FROM coaster
-				INNER JOIN bravery
-				ON bravery.id = coaster.bravery_id
+		$sql = "SELECT coaster.*, brewery.name as brewery_name, brewery.founded as brewery_founded FROM coaster
+				INNER JOIN brewery
+				ON brewery.id = coaster.brewery_id
 				WHERE coaster.id = ?";
 		if($userId) {
 			$sql .= " AND coaster.user_id = ?";

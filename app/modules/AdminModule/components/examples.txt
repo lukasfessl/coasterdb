@@ -9,9 +9,9 @@
 
 		<table class="uk-form">
 			<tr>
-				<td>{label brevery /}</td>
-				<td>{input brevery}</td>
-				<td>{$form['brevery']->getError()}<td>
+				<td>{label brewery /}</td>
+				<td>{input brewery}</td>
+				<td>{$form['brewery']->getError()}<td>
 			</tr>
 			<tr>
 				<td>{label founded /}</td>

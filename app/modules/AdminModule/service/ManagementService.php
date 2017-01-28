@@ -4,7 +4,7 @@ namespace App\Modules\AdminModule\Service;
 
 use App\Modules\Core\Repository\UserRepository;
 use App\Modules\Core\Repository\CoasterRepository;
-use App\Modules\Core\Repository\BraveryRepository;
+use App\Modules\Core\Repository\BreweryRepository;
 use App\Modules\Core\Utils\Hash;
 use Nette\Utils\Strings;
 
@@ -12,37 +12,37 @@ class ManagementService {
 
 	private $userRepository;
 	private $coasterRepository;
-	private $braveryRepository;
+	private $breweryRepository;
 	private $params;
 
 
-	public function __construct(UserRepository $userRepository, CoasterRepository $coasterRepository, BraveryRepository $braveryRepository, array $params) {
+	public function __construct(UserRepository $userRepository, CoasterRepository $coasterRepository, BreweryRepository $breweryRepository, array $params) {
 		$this->userRepository = $userRepository;
 		$this->coasterRepository = $coasterRepository;
-		$this->braveryRepository = $braveryRepository;
+		$this->breweryRepository = $breweryRepository;
 		$this->params = $params;
 	}
 
 
 	// ~ Coasters
 
-	public function addCoaster($braveryName, $founded, $amount, $userId, $imageFront, $imageBack, $fileType) {
-		$bravery = $this->braveryRepository->getBraveryByNameAndFounded($braveryName, $founded);
-		if ($bravery == null) {
-			$bravery = $this->braveryRepository->addBravery($braveryName, $founded);
+	public function addCoaster($breweryName, $founded, $amount, $userId, $imageFront, $imageBack, $fileType) {
+		$brewery = $this->breweryRepository->getBreweryByNameAndFounded($breweryName, $founded);
+		if ($brewery == null) {
+			$brewery = $this->breweryRepository->addBrewery($breweryName, $founded);
 		}
 		$img = $this->processCoasterFiles($userId, $imageFront, $imageBack, $fileType);
-		$this->coasterRepository->addCoaster($bravery['id'], $amount, $userId, $img['imageFrontName'], $img['imageBackName']);
+		$this->coasterRepository->addCoaster($brewery['id'], $amount, $userId, $img['imageFrontName'], $img['imageBackName']);
 	}
 
 
-	public function updateCoaster($coasterId, $braveryName, $founded, $amount, $userId, $imageFront, $imageBack, $fileType) {;
-		$bravery = $this->braveryRepository->getBraveryByNameAndFounded($braveryName, $founded);
-		if ($bravery == null) {
-			$bravery = $this->braveryRepository->addBravery($braveryName, $founded);
+	public function updateCoaster($coasterId, $breweryName, $founded, $amount, $userId, $imageFront, $imageBack, $fileType) {;
+		$brewery = $this->breweryRepository->getBreweryByNameAndFounded($breweryName, $founded);
+		if ($brewery == null) {
+			$brewery = $this->breweryRepository->addBrewery($breweryName, $founded);
 		}
 		$img = $this->processCoasterFiles($userId, $imageFront, $imageBack, $fileType);
-		$this->coasterRepository->updateCoaster($coasterId, $bravery['id'], $amount, $userId, $img['imageFrontName'], $img['imageBackName']);
+		$this->coasterRepository->updateCoaster($coasterId, $brewery['id'], $amount, $userId, $img['imageFrontName'], $img['imageBackName']);
 	}
 
 
@@ -115,7 +115,7 @@ class ManagementService {
 	public function getDashboardData($userId) {
 		$data = array('coastersUniqueCount' => $this->getCoasterRepository()->countUniqueCoasters($userId),
 					'coastersTotalCount' => $this->getCoasterRepository()->countTotalCoasters($userId),
-					'braveryCoasterCount' => $this->getBraveryRepository()->getBraveryCoasterCount($userId),
+					'breweryCoasterCount' => $this->getBreweryRepository()->getBreweryCoasterCount($userId),
 		);
 		return $data;
 	}
@@ -125,11 +125,27 @@ class ManagementService {
 	// ~ Braveries
 
 	public function getBraveries() {
-		return $this->getBraveryRepository()->getBraveries();
+		return $this->getBreweryRepository()->getBraveries();
 	}
 
+	public function getBreweryByName($name) {
+		return $this->getBreweryRepository()->getBreweryByName($name);
+	}
+	
+	public function getBrewery($breweryId) {
+		return $this->getBreweryRepository()->getBrewery($breweryId);
+	}
 
+	public function saveBrewery($name, $founded) {
+		return $this->getBreweryRepository()->addBrewery($name, $founded);
+	}
+	
+	public function updateBrewery($breweryId, $name, $founded) {
+		return $this->getBreweryRepository()->updateBrewery($breweryId, $name, $founded);
+	}
 
+	
+	
 	// ~ Users
 
 	public function getUser($id) {
@@ -171,7 +187,7 @@ class ManagementService {
 		return $this->coasterRepository;
 	}
 
-	public function getBraveryRepository() {
-		return $this->braveryRepository;
+	public function getBreweryRepository() {
+		return $this->breweryRepository;
 	}
 }

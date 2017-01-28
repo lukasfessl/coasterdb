@@ -1,0 +1,31 @@
+{block head}
+	<script type="text/javascript" src="{$basePath}/lib/uikit/js/components/notify.js"></script>
+{/block}
+
+
+
+{block content}
+
+<div class="uk-panel uk-panel-box content">
+	<h3 class="uk-panel-title">Brewery List</h3>
+
+
+	<div n:inner-foreach="$braveries as $brewery" class="brewery-wrapper">
+		<p><a n:href="Brewery:edit $brewery[id]"><i class="uk-icon-pencil"></i></a>{$brewery['name']}{if $brewery['founded']} ({$brewery['founded']}){/if}</p>
+	</div>
+
+</div>
+
+
+<script>
+'{foreach $flashes as $flash}'
+	UIkit.notify({
+		message : '<i class=\'uk-icon-check\'></i> ' + {$flash->message},
+	    status  : 'success',
+	    timeout : 1500
+	});
+'{/foreach}'
+</script>
+
+
+{/block}

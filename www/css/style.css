@@ -152,10 +152,11 @@ ul {
 	border-radius: 10px;
 	background-color: rgba(255,250,250,0.9);
 	margin: 20px;
+	padding: 15px 25px;
 }
 
 .uk-panel.content h3{
-	margin-left: 10px;
+/* 	margin-left: 10px; */
 }
 
 .uk-form .label {
@@ -236,19 +237,28 @@ ul {
 
 /* DASHBOARD */
 
-.dashboard .dashboard-bravery-wrapper {
-	margin-left: 10px;
+.dashboard .dashboard-brewery-wrapper {
+
 }
 
-.dashboard .dashboard-bravery-item {
+.dashboard .dashboard-brewery-item {
 	border-bottom: 1px solid #d1d1d1;
 	margin-bottom: 10px;
 	padding: 0px 0px 10px 0px;
 }
 
-.dashboard .dashboard-bravery {
+.dashboard .dashboard-brewery {
 	display: block;
 	padding: 2px 0px;
 }
 
+/* Brewery */
 
+.brewery-wrapper a {
+	padding: 5px 5px 5px 0px;
+	color: orange;
+}
+
+.brewery-wrapper a:hover {
+	color: #cc8500;
+}

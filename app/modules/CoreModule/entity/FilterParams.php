@@ -16,7 +16,7 @@ class FilterParams {
 	
 	public function __construct() {
 		$this->orderParams = array('desc' => 'Descending', 'asc' => 'Ascending');
-		$this->sortParams = array('bravery' => 'Bravery name', 'founded' => 'Bravery founded', 'inserted' => 'Item inserted');
+		$this->sortParams = array('brewery' => 'Brewery name', 'founded' => 'Brewery founded', 'inserted' => 'Item inserted');
 		$this->params = array();
 	}
 	

@@ -17,7 +17,7 @@
 	<div n:inner-foreach="$coasters as $coaster" class="custom-grid-1-2 custom-grid-1-3 custom-grid-1-4 custom-grid-1-5 custom-grid-1-6 coaster-list-wrapper">
 		<div class="coaster-item">
 			<span>
-				<p>{$coaster['bravery_name']} {if $coaster['bravery_founded']}({$coaster['bravery_founded']}){/if}</p>
+				<p>{$coaster['brewery_name']} {if $coaster['brewery_founded']}({$coaster['brewery_founded']}){/if}</p>
 			</span>
 			<a href="{$basePath}/upload/{$user[id]}/{$coaster[front_image]}" data-uk-lightbox="{ group:'{$coaster[id]}' }">
 				<img src="{$basePath}/upload/{$user[id]}/thumb_{$coaster[front_image]}" title="Front">

@@ -54,10 +54,10 @@ class CoasterForm extends Control
 		$form->addHidden('iw2', 'iw:', 10 )->setHtmlId('image-back-iw');
 		$form->addHidden('ih2', 'ih:', 10 )->setHtmlId('image-back-ih');
 
-		$form->addText('bravery', 'Bravery', 30)->setValue($this->coaster['bravery_name'])->addRule(Form::MIN_LENGTH, "Bravery have to be fill", 1);
-		$form->addText('founded', 'Founded', 30)->setValue($this->coaster['bravery_founded'])->addCondition(Form::REQUIRED)->addRule(Form::NUMERIC, "Value has to be number.");
+		$form->addText('brewery', 'Brewery', 30)->setValue($this->coaster['brewery_name'])->addRule(Form::MIN_LENGTH, "Brewery have to be fill", 1);
+		$form->addText('founded', 'Founded', 30)->setValue($this->coaster['brewery_founded'])->addCondition(Form::REQUIRED)->addRule(Form::NUMERIC, "Value has to be number.");
 		$form->addText('amount', 'Amount', 30)->setValue($this->coaster['amount'])->addCondition(Form::REQUIRED)->addRule(Form::NUMERIC, "Value has to be number.");
-		$form->addHidden('braveryData')->setValue($this->formateBraveries($this->managementService->getBraveries()));
+		$form->addHidden('breweryData')->setValue($this->formateBraveries($this->managementService->getBraveries()));
 		$form->addSubmit('send', $coasterId ? 'Update' : 'Save')->setAttribute('class', 'uk-button');
 		$form->onSuccess[] = $this->process;
 		
@@ -94,11 +94,11 @@ class CoasterForm extends Control
 			throw new ApplicationException();
 		}
 		if (!$coasterId) {
-			$this->managementService->addCoaster($values->bravery, $values->founded, $values->amount, $this->userId, $imageFront, $imageBack, $fileType);
+			$this->managementService->addCoaster($values->brewery, $values->founded, $values->amount, $this->userId, $imageFront, $imageBack, $fileType);
 			$this->presenter->flashMessage('Coaster was added');
 			$this->presenter->redirect('Coaster:list');
 		} else {
-			$this->managementService->updateCoaster($coasterId, $values->bravery, $values->founded, $values->amount, $this->userId, $imageFront, $imageBack, $fileType);
+			$this->managementService->updateCoaster($coasterId, $values->brewery, $values->founded, $values->amount, $this->userId, $imageFront, $imageBack, $fileType);
 			$this->presenter->flashMessage('Coaster was updated');
 		}
 	}
@@ -117,8 +117,8 @@ class CoasterForm extends Control
 	private function formateBraveries($braveries)
 	{
 		$braveriesArray = array();
-		foreach ($braveries as $bravery) {
-			array_push($braveriesArray, array('bravery' => $bravery['name'], 'founded' => $bravery['founded']));
+		foreach ($braveries as $brewery) {
+			array_push($braveriesArray, array('brewery' => $brewery['name'], 'founded' => $brewery['founded']));
 		}
 		
 		return json_encode($braveriesArray);

@@ -29,9 +29,9 @@
 			</td>
 		</tr>
 		<tr>
-			<th class="label">{label bravery/}</th>
-			<td colspan="2">{input bravery}</td>
-			<td><span class="error">{$form['bravery']->error}</span></td>
+			<th class="label">{label brewery/}</th>
+			<td colspan="2">{input brewery}</td>
+			<td><span class="error">{$form['brewery']->error}</span></td>
 		</tr>
 		<tr>
 			<th class="label">{label founded/}</th>
@@ -53,21 +53,21 @@
 <script>
 $(document).ready(function() {
 	
-	$("#frm-coasterForm-form-bravery").autocomplete({
+	$("#frm-coasterForm-form-brewery").autocomplete({
 		source:  function (request, response) {
-	           var data = JSON.parse($("[name='braveryData']").val());
+	           var data = JSON.parse($("[name='breweryData']").val());
 	           response($.map(data, function (value, key) {
-	        	   if (value.bravery.toLowerCase().search(request.term.toLowerCase()) !== -1) {
+	        	   if (value.brewery.toLowerCase().search(request.term.toLowerCase()) !== -1) {
 	        		    return {
-							label: value.bravery + " " +value.founded,
-		                    bravery: value.bravery,
+							label: value.brewery + " " +value.founded,
+		                    brewery: value.brewery,
 		                    founded: value.founded
 	                    }
 	        	   }
 	            }));
 	    },
 		select: function (event, value) {	
-			$("[name='bravery']").val(value.item.bravery);
+			$("[name='brewery']").val(value.item.brewery);
 			$("[name='founded']").val(value.item.founded);
 			event.preventDefault();
 		}
